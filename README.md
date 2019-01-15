@@ -1,4 +1,6 @@
-# golang-traning
+# Golang-traning
+
+# Материалы для самостоятельного изучения
  
 - https://golang.org/ref/spec - спецификация по язык <br /> 
 - https://golang.org/ref/mem - модель памяти го. на начальном этапе не надо, но знать полезно <br />
