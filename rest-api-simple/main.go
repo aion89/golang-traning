@@ -9,14 +9,21 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Article
+//Article asd
 type Article struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Content     string `json:"content"`
 }
 
-// Articles
+//Customer
+type Customer struct {
+	Name  string `json:"name"`
+	ID    string `json:"id"`
+	State string `json:"state"`
+}
+
+//Articles asd
 type Articles []Article
 
 func allArticles(w http.ResponseWriter, r *http.Request) {
@@ -40,6 +47,7 @@ func allArticles(w http.ResponseWriter, r *http.Request) {
 func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint hit: GET Home Page Endpoint")
 	fmt.Fprintf(w, "Endpoint hit: GET Home Page Endpoint")
+	fmt.Fprintf(w, "Супер мега приложуха")
 }
 
 func postArticles(w http.ResponseWriter, r *http.Request) {
@@ -47,13 +55,28 @@ func postArticles(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Endpoint hit: POST All Articles Endpoint")
 }
 
+func vovic(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint hit: Get Vovic")
+	vovic := Customer{
+		Name:  "Vovic",
+		ID:    "1",
+		State: "Mudak",
+	}
+	json.NewEncoder(w).Encode(vovic)
+}
+
 func handleRequests() {
 
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/", homePage)
 	myRouter.HandleFunc("/articles", allArticles).Methods("GET")
+	myRouter.HandleFunc("/vovic", vovic).Methods("GET")
 	myRouter.HandleFunc("/articles", postArticles).Methods("POST")
-	log.Fatal(http.ListenAndServe(":8081", myRouter))
+	err := http.ListenAndServe(":8081", myRouter)
+	if err != nil {
+		log.Fatalf("Server failed to start with error %v", err)
+	}
+
 }
 
 func main() {
