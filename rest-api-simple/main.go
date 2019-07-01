@@ -68,10 +68,14 @@ func vovic(w http.ResponseWriter, r *http.Request) {
 func handleRequests() {
 
 	myRouter := mux.NewRouter().StrictSlash(true)
+
 	myRouter.HandleFunc("/", homePage)
 	myRouter.HandleFunc("/articles", allArticles).Methods("GET")
 	myRouter.HandleFunc("/vovic", vovic).Methods("GET")
 	myRouter.HandleFunc("/articles", postArticles).Methods("POST")
+	
+
+	
 	err := http.ListenAndServe(":8081", myRouter)
 	if err != nil {
 		log.Fatalf("Server failed to start with error %v", err)
